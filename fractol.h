@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 11:00:03 by nkhribec          #+#    #+#             */
-/*   Updated: 2020/01/18 18:01:39 by nkhribec         ###   ########.fr       */
+/*   Updated: 2020/01/19 14:24:36 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,36 +19,22 @@
 # include <stdio.h>
 # include "libft/libft.h"
 # include <fcntl.h>
-# define W_LEN 1000
-# define W_WID 1000
-# define I_LEN 500
-# define I_WID 500
+# define W_LEN 905
+# define W_WID 905
+# define I_LEN 801
+# define I_WID 801
+# define I_X0 52
+# define I_Y0 53
 # define COLOR 0X00FFFFFF
+# define COLOR1 0X00a0d0c5
+# define COLOR2 0X00c2b85b
+# define COLOR3 0X00e3985b
+# define COLOR4 0X00e3df5b
 # define TRUE 1
 # define FALSE 0
 # define ABS(v) ((v > 0) ? v : -v)
 
-typedef struct	s_mapdim
-{
-	int		length;
-	int		width;
-}				t_mapdim;
-
-typedef struct	s_point
-{
-	int		x;
-	int		y;
-	int		z;
-	int		v;
-}				t_point;
-
-typedef struct	s_map
-{
-	t_point		*tab;
-	t_mapdim	dim;
-}				t_map;
-
-typedef struct	s_mlxxparams
+typedef struct	s_mlxparams
 {
 	void		*mlx_ptr;
 	void		*mlx_win;
@@ -56,53 +42,28 @@ typedef struct	s_mlxxparams
 	int			width_win;
 	void		*img_ptr;
 	int			*image;
-	int			length_img;
-	int			width_img;
+	//int			length_img;
+	//int			width_img;
 	int			bits_per_pixel;
 	int			size_line;
 	int			endian;
 }				t_mlxparams;
 
+typedef struct	s_z
+{
+	double	x;
+	double	y;
+}				t_z;
 /*
 ** ***************************************************************************
 */
+	
+double	map(double n, double a, double b, double a2, double b2);
+void	fill_mlxparams(t_mlxparams *mlxparams);
+int		put(int keycode, void *vartemp);
+int		ft_close(void *param);
+int		key_hook(int keycode, void *param);
+void	put_cadre(t_mlxparams *mlxparams, int x, int y, int len);
 
-typedef	struct	s_draw_vars
-{
-	int	edx;
-	int	pdx;
-	int	dx;
-	int	dy;
-	int	incrx;
-	int	incry;
-	int	i;
-	int	index;
-}				t_draw_vars;
-
-typedef struct	s_hook
-{
-	t_mlxparams	*mlxparams;
-	t_map		*map;
-	t_point		proj_params[2];
-}				t_hook;
-
-void			fill_mlxparams(t_mlxparams *mlxparams);
-int				put(int keycode, void *vartemp);
-void			zoomin(t_map *map);
-void			zoomout(t_map *map);
-void			zoom(t_map *map);
-void			get_params_to_center_isoproject(int *x, int *y, t_map *map);
-void			get_params_to_center_parallelproject(int *x, int *y, \
-				t_map *map);
-/*
-** in file : tools 2
-*/
-
-void			zoomout(t_map *map);
-void			zoomin(t_map *map);
-int				min(int a, int b, int c, int d);
-int				max(int a, int b, int c, int d);
-
-int				ft_exit(void *hook);
 
 #endif

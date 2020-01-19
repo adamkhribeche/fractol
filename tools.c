@@ -3,106 +3,69 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mzaboub <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/12/10 00:57:36 by mzaboub           #+#    #+#             */
-/*   Updated: 2019/12/13 16:30:43 by nkhribec         ###   ########.fr       */
+/*   Created: 2020/01/18 20:48:43 by nkhribec          #+#    #+#             */
+/*   Updated: 2020/01/19 15:03:15 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "fractol.h"
 
-/*
-** ---------------------------------------------------------------------------
-*/
-
-void	*ft_memdup(void *mem, size_t size)
+double	map(double n, double a, double b, double a2, double b2)
 {
-	void	*dup;
+	double	m;
 
-	if (!(dup = malloc(size)))
+	m = (n - a) / (b - a);
+	return (a2 + (m * (b2 - a2)));
+}
+
+void	draw_horizental(t_mlxparams *mlxparams, int x, int y, int len)
+{
+	int		i;
+	int		j;
+
+	i = x - 1;
+	j = y;
+	while (++i < len + x)
 	{
-		perror("");
-		exit(0);
+		mlx_pixel_put(mlxparams->mlx_ptr, mlxparams->mlx_win, i, j, COLOR);
+		mlx_pixel_put(mlxparams->mlx_ptr, mlxparams->mlx_win, i, j + 1, COLOR);
 	}
-	ft_memcpy(dup, mem, size);
-	return (dup);
 }
 
-/*
-** ---------------------------------------------------------------------------
-*/
-
-t_map	dupmap(t_map map)
+void	draw_vertical(t_mlxparams *mlxparams, int x, int y, int len)
 {
-	t_map dup;
+	int		i;
+	int		j;
 
-	dup.tab = ft_memdup(map.tab, sizeof(*map.tab) * map.dim.length * \
-			map.dim.width);
-	dup.dim.length = map.dim.length;
-	dup.dim.width = map.dim.width;
-	return (dup);
+	i = x;
+	j = y - 1;
+	while (++j < len + y)
+	{
+		mlx_pixel_put(mlxparams->mlx_ptr, mlxparams->mlx_win, i, j, COLOR);
+		mlx_pixel_put(mlxparams->mlx_ptr, mlxparams->mlx_win, i + 1, j, COLOR);
+	}
 }
 
-/*
-** ---------------------------------------------------------------------------
-*/
-
-void	skip_space(char **s)
+void	put_cadre(t_mlxparams *mlxparams, int x, int y, int len)
 {
-	while (**s && ft_isspace(**s))
-		(*s)++;
+	draw_horizental(mlxparams, x, y, len);
+	draw_vertical(mlxparams, x, y, len);
+	draw_horizental(mlxparams, x, y + len - 2, len);
+	draw_vertical(mlxparams, x + len - 2, y, len);
 }
 
-/*
-** ---------------------------------------------------------------------------
-*/
-
-void	skip_notspace(char **s)
+int		ft_close(void *param)
 {
-	while (**s && !ft_isspace(**s))
-		(*s)++;
+	(void)param;
+	exit(0);
 }
 
-/*
-** ---------------------------------------------------------------------------
-*/
-
-int		digitlength(int n)
+int		key_hook(int keycode, void *param)
 {
-	int i;
-
-	i = 1;
-	while ((n /= 10))
-		i++;
-	return (i);
+	if (keycode == 53)
+		ft_close(param);
+	return (0);
 }
 
-/*
-** ***************************************************************************
-*/
-/*
-** void	printmap(t_map map)
-** {
-**		int index;
-**		int count;
-**
-**		index = 0;
-**		while (map.dim.width--)
-**		{
-**			count = 0;
-**			while (count < map.dim.length)
-**			{
-**				ft_putnbr(map.tab[index].z);
-**				ft_putstr("   ");
-**				if (digitlength(map.tab[index].z) == 2)
-**					ft_putstr(" ");
-**				else if (digitlength(map.tab[index].z) == 1)
-**					ft_putstr("  ");
-**				index++;
-**				count++;
-**			}
-**			ft_putchar('\n');
-**		}
-** }
-*/
