@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 20:48:43 by nkhribec          #+#    #+#             */
-/*   Updated: 2020/01/19 15:03:15 by nkhribec         ###   ########.fr       */
+/*   Updated: 2020/01/20 00:07:13 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	draw_horizental(t_mlxparams *mlxparams, int x, int y, int len)
 	j = y;
 	while (++i < len + x)
 	{
-		mlx_pixel_put(mlxparams->mlx_ptr, mlxparams->mlx_win, i, j, COLOR);
-		mlx_pixel_put(mlxparams->mlx_ptr, mlxparams->mlx_win, i, j + 1, COLOR);
+		mlx_pixel_put(mlxparams->ptr, mlxparams->win, i, j, COLOR);
+		mlx_pixel_put(mlxparams->ptr, mlxparams->win, i, j + 1, COLOR);
 	}
 }
 
@@ -43,8 +43,8 @@ void	draw_vertical(t_mlxparams *mlxparams, int x, int y, int len)
 	j = y - 1;
 	while (++j < len + y)
 	{
-		mlx_pixel_put(mlxparams->mlx_ptr, mlxparams->mlx_win, i, j, COLOR);
-		mlx_pixel_put(mlxparams->mlx_ptr, mlxparams->mlx_win, i + 1, j, COLOR);
+		mlx_pixel_put(mlxparams->ptr, mlxparams->win, i, j, COLOR);
+		mlx_pixel_put(mlxparams->ptr, mlxparams->win, i + 1, j, COLOR);
 	}
 }
 
@@ -58,14 +58,148 @@ void	put_cadre(t_mlxparams *mlxparams, int x, int y, int len)
 
 int		ft_close(void *param)
 {
+	//must free
 	(void)param;
 	exit(0);
+}
+
+void	clean_win(t_mlxparams *mlxparams)
+{
+	t_img img;
+
+	img.img_ptr = (int*)mlx_new_image(mlxparams->ptr, W_LEN, W_WID);
+	img.image = (int *)mlx_get_data_addr(img.img_ptr,\
+	&img.bits_per_pixel, &img.size_line, &img.endian);
+	mlx_put_image_to_window(mlxparams->ptr, mlxparams->win,\
+			img.img_ptr, 0, 0);
+}
+
+void	clean_top(t_mlxparams *mlxparams)
+{
+	int i;
+	int j;
+
+	j = -1;
+	while (++j < CADRE_Y0)
+	{
+		i = -1;
+		while (++i < W_LEN)
+			mlx_pixel_put(mlxparams->ptr, mlxparams->win, i, j, 0);
+	}
+}
+
+void	clean_down(t_mlxparams *mlxparams)
+{
+	int i;
+	int j;
+
+	j = CADRE_Y0 + CADRE_LEN - 1;
+	while (++j < W_LEN)
+	{
+		i = -1;
+		while (++i < W_LEN)
+			mlx_pixel_put(mlxparams->ptr, mlxparams->win, i, j, 0);
+	}
+}
+
+void	clean_left(t_mlxparams *mlxparams)
+{
+	int i;
+	int j;
+
+	j = CADRE_Y0 - 1;
+	while (++j < W_LEN)
+	{
+		i = -1;
+		while (++i < CADRE_X0)
+			mlx_pixel_put(mlxparams->ptr, mlxparams->win, i, j, 0);
+	}
+}
+
+void	clean_right(t_mlxparams *mlxparams)
+{
+	int i;
+	int j;
+
+	j = CADRE_Y0 - 1;
+	while (++j < W_WID)
+	{
+		i = CADRE_X0 + CADRE_LEN - 1;
+		while (++i < W_LEN)
+			mlx_pixel_put(mlxparams->ptr, mlxparams->win, i, j, 0);
+	}
+}
+
+void	clean_outsid(t_mlxparams *mlxparams)
+{
+	clean_top(mlxparams);
+	clean_down(mlxparams);
+	clean_left(mlxparams);
+	clean_right(mlxparams);
+}
+
+void	move_left(t_mlxparams *mlxparams)
+{
+	mlxparams->img.image_x0 -= 4;
+	clean_win(mlxparams);
+	mlx_put_image_to_window(mlxparams->ptr, mlxparams->win,\
+		mlxparams->img.img_ptr, mlxparams->img.image_x0, mlxparams->img.image_y0);
+	put_cadre(mlxparams, CADRE_X0, CADRE_Y0, CADRE_LEN);
+	clean_outsid(mlxparams);
+}
+
+void	move_right(t_mlxparams *mlxparams)
+{
+	mlxparams->img.image_x0 += 4;
+	clean_win(mlxparams);
+	mlx_put_image_to_window(mlxparams->ptr, mlxparams->win,\
+		mlxparams->img.img_ptr, mlxparams->img.image_x0, mlxparams->img.image_y0);
+	put_cadre(mlxparams, CADRE_X0, CADRE_Y0, CADRE_LEN);
+	clean_outsid(mlxparams);
+}
+
+void	move_up(t_mlxparams *mlxparams)
+{
+	mlxparams->img.image_y0 -= 4;
+	clean_win(mlxparams);
+	mlx_put_image_to_window(mlxparams->ptr, mlxparams->win,\
+		mlxparams->img.img_ptr, mlxparams->img.image_x0, mlxparams->img.image_y0);
+	put_cadre(mlxparams, CADRE_X0, CADRE_Y0, CADRE_LEN);
+	clean_outsid(mlxparams);
+}
+
+void	move_down(t_mlxparams *mlxparams)
+{
+	mlxparams->img.image_y0 += 4;
+	clean_win(mlxparams);
+	mlx_put_image_to_window(mlxparams->ptr, mlxparams->win,\
+		mlxparams->img.img_ptr, mlxparams->img.image_x0, mlxparams->img.image_y0);
+	put_cadre(mlxparams, CADRE_X0, CADRE_Y0, CADRE_LEN);
+	clean_outsid(mlxparams);
+}
+
+void	init(t_mlxparams *mlxparams)
+{
+	mlxparams->img.image_x0 = I_X0;
+	mlxparams->img.image_y0 = I_Y0;
+	mlx_put_image_to_window(mlxparams->ptr, mlxparams->win,\
+		mlxparams->img.img_ptr, mlxparams->img.image_x0, mlxparams->img.image_y0);
 }
 
 int		key_hook(int keycode, void *param)
 {
 	if (keycode == 53)
 		ft_close(param);
+	else if (keycode == 123)
+		move_left(((t_mlxparams*)param));
+	else if (keycode == 124)
+		move_right(param);
+	else if (keycode == 126)
+		move_up(param);
+	else if (keycode == 125)
+		move_down(param);
+	else if (keycode == 34)
+		init(param);
 	return (0);
 }
 

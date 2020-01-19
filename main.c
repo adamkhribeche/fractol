@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 11:07:19 by nkhribec          #+#    #+#             */
-/*   Updated: 2020/01/19 15:00:54 by nkhribec         ###   ########.fr       */
+/*   Updated: 2020/01/20 00:15:38 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		is_diverg(double x, double y)
 }
 int get_color(int a, int b)
 {
-	return ((a | (b << 8)));
+	return ((a << 8) | (b << 16));
 }
 void	draw(t_mlxparams *mlxparams)
 {
@@ -62,9 +62,8 @@ void	draw(t_mlxparams *mlxparams)
 			{
 				a = map(ret, 0, 100, 0, 1);
 				bright = map(sqrt(a), 0, 1, 0, 255);
-				mlxparams->image[i] = get_color(bright, bright);
+				mlxparams->img.image[i] = get_color(bright, bright);
 			}
-			
 			//printf("%d\n", i);
 			i++;
 			x += pas;
@@ -74,19 +73,21 @@ void	draw(t_mlxparams *mlxparams)
 		y += pas;
 	}
 	//exit(0);
-	mlx_put_image_to_window(mlxparams->mlx_ptr, mlxparams->mlx_win,\
+	//mlx_put_image_to_window(mlxparams->mlx_ptr, mlxparams->mlx_win,\
 			mlxparams->img_ptr, I_X0, I_Y0);
+	mlx_put_image_to_window(mlxparams->ptr, mlxparams->win,\
+			mlxparams->img.img_ptr, mlxparams->img.image_x0, mlxparams->img.image_y0);
 }
 
 void	mandelbrot(t_mlxparams *mlxparams)
 {
-	void *param;
+	t_param *param;
 
-	put_cadre(mlxparams, 50, 50, 806);
+	put_cadre(mlxparams, CADRE_X0, CADRE_Y0, CADRE_LEN);
 	draw(mlxparams);
 	//mlx_pixel_put(mlxparams->mlx_ptr, mlxparams->mlx_win, 52, 53, COLOR);
-	mlx_key_hook(mlxparams->mlx_win, key_hook, param);
-	mlx_hook(mlxparams->mlx_win, 17, 0, ft_close, param);
+	mlx_key_hook(mlxparams->win, key_hook, mlxparams);
+	mlx_hook(mlxparams->win, 17, 0, ft_close, param);
 }
 
 int		main(int ac, char **av)
@@ -98,7 +99,7 @@ int		main(int ac, char **av)
 		mlxparams = malloc(sizeof(*mlxparams));
 		fill_mlxparams(mlxparams);
 		mandelbrot(mlxparams);
-		mlx_loop(mlxparams->mlx_ptr);
+		mlx_loop(mlxparams->ptr);
 	}
 	else
 		ft_putendl("usage: fractol mandelbrot | julia");

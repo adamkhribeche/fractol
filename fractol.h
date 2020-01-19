@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 11:00:03 by nkhribec          #+#    #+#             */
-/*   Updated: 2020/01/19 14:24:36 by nkhribec         ###   ########.fr       */
+/*   Updated: 2020/01/20 00:00:16 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,30 +23,32 @@
 # define W_WID 905
 # define I_LEN 801
 # define I_WID 801
+# define CADRE_X0 50
+# define CADRE_Y0 50
+# define CADRE_LEN 806
 # define I_X0 52
 # define I_Y0 53
 # define COLOR 0X00FFFFFF
-# define COLOR1 0X00a0d0c5
-# define COLOR2 0X00c2b85b
-# define COLOR3 0X00e3985b
-# define COLOR4 0X00e3df5b
 # define TRUE 1
 # define FALSE 0
 # define ABS(v) ((v > 0) ? v : -v)
 
-typedef struct	s_mlxparams
+typedef struct	s_img
 {
-	void		*mlx_ptr;
-	void		*mlx_win;
-	int			length_win;
-	int			width_win;
 	void		*img_ptr;
 	int			*image;
-	//int			length_img;
-	//int			width_img;
+	int			image_x0;
+	int			image_y0;
 	int			bits_per_pixel;
 	int			size_line;
 	int			endian;
+}				t_img;
+
+typedef struct	s_mlxparams
+{
+	void		*ptr;
+	void		*win;
+	t_img		img;
 }				t_mlxparams;
 
 typedef struct	s_z
@@ -54,6 +56,11 @@ typedef struct	s_z
 	double	x;
 	double	y;
 }				t_z;
+
+typedef struct	s_param
+{
+	t_mlxparams mlxparams;
+}				t_param;
 /*
 ** ***************************************************************************
 */
