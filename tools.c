@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 20:48:43 by nkhribec          #+#    #+#             */
-/*   Updated: 2020/01/20 00:07:13 by nkhribec         ###   ########.fr       */
+/*   Updated: 2020/01/20 03:57:06 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,58 +76,26 @@ void	clean_win(t_mlxparams *mlxparams)
 
 void	clean_top(t_mlxparams *mlxparams)
 {
-	int i;
-	int j;
-
-	j = -1;
-	while (++j < CADRE_Y0)
-	{
-		i = -1;
-		while (++i < W_LEN)
-			mlx_pixel_put(mlxparams->ptr, mlxparams->win, i, j, 0);
-	}
+	mlx_put_image_to_window(mlxparams->ptr, mlxparams->win,\
+			mlxparams->cleantop_img.img_ptr, 0, 0);
 }
 
 void	clean_down(t_mlxparams *mlxparams)
 {
-	int i;
-	int j;
-
-	j = CADRE_Y0 + CADRE_LEN - 1;
-	while (++j < W_LEN)
-	{
-		i = -1;
-		while (++i < W_LEN)
-			mlx_pixel_put(mlxparams->ptr, mlxparams->win, i, j, 0);
-	}
+	mlx_put_image_to_window(mlxparams->ptr, mlxparams->win,\
+			mlxparams->cleandown_img.img_ptr, 0, CADRE_Y0 + CADRE_LEN);
 }
 
 void	clean_left(t_mlxparams *mlxparams)
 {
-	int i;
-	int j;
-
-	j = CADRE_Y0 - 1;
-	while (++j < W_LEN)
-	{
-		i = -1;
-		while (++i < CADRE_X0)
-			mlx_pixel_put(mlxparams->ptr, mlxparams->win, i, j, 0);
-	}
+	mlx_put_image_to_window(mlxparams->ptr, mlxparams->win,\
+			mlxparams->cleanleft_img.img_ptr, 0, CADRE_Y0);
 }
 
 void	clean_right(t_mlxparams *mlxparams)
 {
-	int i;
-	int j;
-
-	j = CADRE_Y0 - 1;
-	while (++j < W_WID)
-	{
-		i = CADRE_X0 + CADRE_LEN - 1;
-		while (++i < W_LEN)
-			mlx_pixel_put(mlxparams->ptr, mlxparams->win, i, j, 0);
-	}
+	mlx_put_image_to_window(mlxparams->ptr, mlxparams->win,\
+			mlxparams->cleanright_img.img_ptr, CADRE_X0 + CADRE_LEN, CADRE_Y0);
 }
 
 void	clean_outsid(t_mlxparams *mlxparams)
@@ -140,50 +108,50 @@ void	clean_outsid(t_mlxparams *mlxparams)
 
 void	move_left(t_mlxparams *mlxparams)
 {
-	mlxparams->img.image_x0 -= 4;
+	mlxparams->fractal.image_x0 -= 6;
 	clean_win(mlxparams);
 	mlx_put_image_to_window(mlxparams->ptr, mlxparams->win,\
-		mlxparams->img.img_ptr, mlxparams->img.image_x0, mlxparams->img.image_y0);
+		mlxparams->fractal.img_ptr, mlxparams->fractal.image_x0, mlxparams->fractal.image_y0);
 	put_cadre(mlxparams, CADRE_X0, CADRE_Y0, CADRE_LEN);
 	clean_outsid(mlxparams);
 }
 
 void	move_right(t_mlxparams *mlxparams)
 {
-	mlxparams->img.image_x0 += 4;
+	mlxparams->fractal.image_x0 += 6;
 	clean_win(mlxparams);
 	mlx_put_image_to_window(mlxparams->ptr, mlxparams->win,\
-		mlxparams->img.img_ptr, mlxparams->img.image_x0, mlxparams->img.image_y0);
+		mlxparams->fractal.img_ptr, mlxparams->fractal.image_x0, mlxparams->fractal.image_y0);
 	put_cadre(mlxparams, CADRE_X0, CADRE_Y0, CADRE_LEN);
 	clean_outsid(mlxparams);
 }
 
 void	move_up(t_mlxparams *mlxparams)
 {
-	mlxparams->img.image_y0 -= 4;
+	mlxparams->fractal.image_y0 -= 6;
 	clean_win(mlxparams);
 	mlx_put_image_to_window(mlxparams->ptr, mlxparams->win,\
-		mlxparams->img.img_ptr, mlxparams->img.image_x0, mlxparams->img.image_y0);
+		mlxparams->fractal.img_ptr, mlxparams->fractal.image_x0, mlxparams->fractal.image_y0);
 	put_cadre(mlxparams, CADRE_X0, CADRE_Y0, CADRE_LEN);
 	clean_outsid(mlxparams);
 }
 
 void	move_down(t_mlxparams *mlxparams)
 {
-	mlxparams->img.image_y0 += 4;
+	mlxparams->fractal.image_y0 += 6;
 	clean_win(mlxparams);
 	mlx_put_image_to_window(mlxparams->ptr, mlxparams->win,\
-		mlxparams->img.img_ptr, mlxparams->img.image_x0, mlxparams->img.image_y0);
+		mlxparams->fractal.img_ptr, mlxparams->fractal.image_x0, mlxparams->fractal.image_y0);
 	put_cadre(mlxparams, CADRE_X0, CADRE_Y0, CADRE_LEN);
 	clean_outsid(mlxparams);
 }
 
 void	init(t_mlxparams *mlxparams)
 {
-	mlxparams->img.image_x0 = I_X0;
-	mlxparams->img.image_y0 = I_Y0;
+	mlxparams->fractal.image_x0 = I_X0;
+	mlxparams->fractal.image_y0 = I_Y0;
 	mlx_put_image_to_window(mlxparams->ptr, mlxparams->win,\
-		mlxparams->img.img_ptr, mlxparams->img.image_x0, mlxparams->img.image_y0);
+		mlxparams->fractal.img_ptr, mlxparams->fractal.image_x0, mlxparams->fractal.image_y0);
 }
 
 int		key_hook(int keycode, void *param)

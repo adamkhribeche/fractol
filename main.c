@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 11:07:19 by nkhribec          #+#    #+#             */
-/*   Updated: 2020/01/20 00:15:38 by nkhribec         ###   ########.fr       */
+/*   Updated: 2020/01/20 03:27:23 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ int		is_diverg(double x, double y)
 	}
 	return (0);
 }
-int get_color(int a, int b)
+int get_color(int a, int b, int c)
 {
-	return ((a << 8) | (b << 16));
+	return ((a << 0) | (b << 8) | (c << 16));
 }
 void	draw(t_mlxparams *mlxparams)
 {
@@ -62,7 +62,8 @@ void	draw(t_mlxparams *mlxparams)
 			{
 				a = map(ret, 0, 100, 0, 1);
 				bright = map(sqrt(a), 0, 1, 0, 255);
-				mlxparams->img.image[i] = get_color(bright, bright);
+				mlxparams->fractal.image[i] = get_color(bright, bright, bright);
+				//mlxparams->fractal.image[i] = bright;
 			}
 			//printf("%d\n", i);
 			i++;
@@ -76,7 +77,7 @@ void	draw(t_mlxparams *mlxparams)
 	//mlx_put_image_to_window(mlxparams->mlx_ptr, mlxparams->mlx_win,\
 			mlxparams->img_ptr, I_X0, I_Y0);
 	mlx_put_image_to_window(mlxparams->ptr, mlxparams->win,\
-			mlxparams->img.img_ptr, mlxparams->img.image_x0, mlxparams->img.image_y0);
+			mlxparams->fractal.img_ptr, mlxparams->fractal.image_x0, mlxparams->fractal.image_y0);
 }
 
 void	mandelbrot(t_mlxparams *mlxparams)

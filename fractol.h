@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 11:00:03 by nkhribec          #+#    #+#             */
-/*   Updated: 2020/01/20 00:00:16 by nkhribec         ###   ########.fr       */
+/*   Updated: 2020/01/20 03:30:18 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,12 @@ typedef struct	s_mlxparams
 {
 	void		*ptr;
 	void		*win;
-	t_img		img;
+	t_img		fractal;
+	t_img		cleantop_img;
+	t_img		cleandown_img;
+	t_img		cleanleft_img;
+	t_img		cleanright_img;
+
 }				t_mlxparams;
 
 typedef struct	s_z
@@ -61,6 +66,15 @@ typedef struct	s_param
 {
 	t_mlxparams mlxparams;
 }				t_param;
+
+typedef struct	s_mandelbrot
+{
+	double	min_x;
+	double	max_x;
+	double	min_y;
+	double	max_y;
+	double	pas;
+}				t_mandelbrot;
 /*
 ** ***************************************************************************
 */
