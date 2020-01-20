@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 11:00:03 by nkhribec          #+#    #+#             */
-/*   Updated: 2020/01/20 22:14:17 by nkhribec         ###   ########.fr       */
+/*   Updated: 2020/01/20 22:16:31 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,10 @@ typedef struct	s_z
 	double	y;
 }				t_z;
 
-typedef struct	s_param
+/*typedef struct	s_param
 {
 	t_mlxparams mlxparams;
-}				t_param;
+}				t_param;*/
 
 /*
 ** ***************************************************************************

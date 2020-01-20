@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 11:07:19 by nkhribec          #+#    #+#             */
-/*   Updated: 2020/01/20 22:13:26 by nkhribec         ###   ########.fr       */
+/*   Updated: 2020/01/20 22:17:30 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,10 @@ void	draw(t_mlxparams *mlxparams)
 
 void	mandelbrot(t_mlxparams *mlxparams)
 {
-	t_param *param;
-
 	put_cadre(mlxparams, CADRE_X0, CADRE_Y0, CADRE_LEN);
 	draw(mlxparams);
 	mlx_key_hook(mlxparams->win, key_hook, mlxparams);
-	mlx_hook(mlxparams->win, 17, 0, ft_close, param);
+	mlx_hook(mlxparams->win, 17, 0, ft_close, mlxparams);
 }
 
 int		main(int ac, char **av)
