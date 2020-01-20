@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 11:00:03 by nkhribec          #+#    #+#             */
-/*   Updated: 2020/01/20 19:44:16 by nkhribec         ###   ########.fr       */
+/*   Updated: 2020/01/20 22:14:17 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define CADRE_LEN 806
 # define I_X0 52
 # define I_Y0 53
-# define R0 -2.
+# define ITERATION 40
 # define COLOR 0X00FFFFFF
 # define TRUE 1
 # define FALSE 0
@@ -40,7 +40,7 @@ typedef struct	s_mb_infos
 	double	xmax;
 	double	ymin;
 	double	ymax;
-	double	pas;
+	double	len;
 }				t_mb_infos;
 
 typedef struct	s_img

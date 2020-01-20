@@ -5,8 +5,20 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/20 20:30:42 by nkhribec          #+#    #+#             */
+/*   Updated: 2020/01/20 21:27:57 by nkhribec         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   tools.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 20:48:43 by nkhribec          #+#    #+#             */
-/*   Updated: 2020/01/20 19:40:18 by nkhribec         ###   ########.fr       */
+/*   Updated: 2020/01/20 19:53:38 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,28 +77,34 @@ int		ft_close(void *param)
 
 void	fill_mb_to_move_left(t_mb_infos *mb_infos)
 {
-	mb_infos->xmax += 10 * mb_infos->pas;
-	mb_infos->xmin += 10 * mb_infos->pas;
+	mb_infos->xmax -= mb_infos->len * 0.03;
+	mb_infos->xmin -= mb_infos->len * 0.03;
 	//mb_infos->xmax += 0.5;
 	//mb_infos->xmin += 0.5;
 }
 
 void	fill_mb_to_move_right(t_mb_infos *mb_infos)
 {
-	mb_infos->xmax -= 10 * mb_infos->pas;
-	mb_infos->xmin -= 10 * mb_infos->pas;
+	mb_infos->xmax += mb_infos->len * 0.03;
+	mb_infos->xmin += mb_infos->len * 0.03;
+	//mb_infos->xmax -= 10 * mb_infos->pas;
+	//mb_infos->xmin -= 10 * mb_infos->pas;
 }
 
 void	fill_mb_to_move_up(t_mb_infos *mb_infos)
 {
-	mb_infos->ymax += 10 * mb_infos->pas;
-	mb_infos->ymin += 10 * mb_infos->pas;
+	mb_infos->ymax -= mb_infos->len * 0.03;
+	mb_infos->ymin -= mb_infos->len * 0.03;
+	//mb_infos->ymax += 10 * mb_infos->pas;
+	//mb_infos->ymin += 10 * mb_infos->pas;
 }
 
 void	fill_mb_to_move_down(t_mb_infos *mb_infos)
 {
-	mb_infos->ymax -= 10 * mb_infos->pas;
-	mb_infos->ymin -= 10 * mb_infos->pas;
+	mb_infos->ymax += mb_infos->len * 0.03;
+	mb_infos->ymin += mb_infos->len * 0.03;
+	//mb_infos->ymax -= 10 * mb_infos->pas;
+	//mb_infos->ymin -= 10 * mb_infos->pas;
 }
 
 void	move_left(t_mlxparams *mlxparams)
@@ -128,20 +146,20 @@ void	init(t_mlxparams *mlxparams)
 
 void	fill_mb_to_zoomin(t_mb_infos *mb_infos)
 {
-	mb_infos->xmax *= 0.7;// 70 per cent
-	mb_infos->xmin *= 0.7;
-	mb_infos->ymax *= 0.7;
-	mb_infos->ymin *= 0.7;
-	mb_infos->pas = (mb_infos->xmax - mb_infos->xmin) / (I_LEN - 1.);
+	mb_infos->xmax *= 0.8;// 70 per cent
+	mb_infos->xmin *= 0.8;
+	mb_infos->ymax *= 0.8;
+	mb_infos->ymin *= 0.8;
+	mb_infos->len = (mb_infos->xmax - mb_infos->xmin);
 }
 
 void	fill_mb_to_zoomout(t_mb_infos *mb_infos)
 {
-	mb_infos->xmax *= 1.3;// 70 per cent
-	mb_infos->xmin *= 1.3;
-	mb_infos->ymax *= 1.3;
-	mb_infos->ymin *= 1.3;
-	mb_infos->pas = (mb_infos->xmax - mb_infos->xmin) / (I_LEN - 1.);
+	mb_infos->xmax /= 0.8;
+	mb_infos->xmin /= 0.8;
+	mb_infos->ymax /= 0.8;
+	mb_infos->ymin /= 0.8;
+	mb_infos->len = (mb_infos->xmax - mb_infos->xmin);
 }
 
 void	zoom_out(t_mlxparams *mlxparams)

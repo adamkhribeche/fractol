@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 11:07:19 by nkhribec          #+#    #+#             */
-/*   Updated: 2020/01/20 17:19:00 by nkhribec         ###   ########.fr       */
+/*   Updated: 2020/01/20 22:13:26 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		is_diverg(double x, double y)
 	i = -1;
 	z0.x = 0;
 	z0.y = 0;
-	while (++i < 100)
+	while (++i < ITERATION)
 	{
 		z.x = (z0.x * z0.x) - (z0.y * z0.y) + x;
 		z.y = (2 * (z0.x * z0.y)) + y;
@@ -34,9 +34,9 @@ int		is_diverg(double x, double y)
 	}
 	return (0);
 }
-int get_color(int a, int b, int c)
+int get_color(int a, int b)
 {
-	return ((a << 0) | (b << 8) | (c << 16));
+	return ((a << 0) | (b << 8));
 }
 void	draw(t_mlxparams *mlxparams)
 {
@@ -44,41 +44,30 @@ void	draw(t_mlxparams *mlxparams)
 	double		y;
 	int			i;
 	int			ret;
-	//int			j;
+	int			j;
 	double 		a;
 	int			bright;
 
-	//y = -2.;
-	y = mlxparams->mb_infos.ymin;
-	i = 0;
-	//j = 0;
-	//pas = 0.005;
-	while (y < mlxparams->mb_infos.ymax)
+	j = 0;
+	while (j < I_WID)
 	{
-		x = mlxparams->mb_infos.xmin;
-		//x = -2.;
-		while (x < mlxparams->mb_infos.xmax)
+		i = 0;
+		y = map(j, 0, I_WID, mlxparams->mb_infos.ymin, mlxparams->mb_infos.ymax);
+		while (i < I_LEN)
 		{
-			if (ABS(x) < 2. && ABS(y) < 2. && (ret = is_diverg(x, y)))
+			x = map(i, 0, I_LEN, mlxparams->mb_infos.xmin, mlxparams->mb_infos.xmax);
+			if ((ret = is_diverg(x, y)))
 			{
 				a = map(ret, 0, 100, 0, 1);
 				bright = map(sqrt(a), 0, 1, 0, 255);
-				mlxparams->fractal.image[i] = get_color(bright, bright, bright);
-				//mlxparams->fractal.image[i] = bright;
+				mlxparams->fractal.image[i + (j * I_LEN)] = get_color(bright, bright);
 			}
-			//printf("%d\n", i);
 			i++;
-			x += mlxparams->mb_infos.pas;
 		}
-		//printf("%d\n", j++);
-		//exit(0);
-		y += mlxparams->mb_infos.pas;
+		j++;
 	}
-	//exit(0);
-	//mlx_put_image_to_window(mlxparams->mlx_ptr, mlxparams->mlx_win,\
-			mlxparams->img_ptr, I_X0, I_Y0);
 	mlx_put_image_to_window(mlxparams->ptr, mlxparams->win,\
-			mlxparams->fractal.img_ptr, I_X0, I_Y0);
+		mlxparams->fractal.img_ptr, I_X0, I_Y0);
 }
 
 void	mandelbrot(t_mlxparams *mlxparams)
@@ -87,7 +76,6 @@ void	mandelbrot(t_mlxparams *mlxparams)
 
 	put_cadre(mlxparams, CADRE_X0, CADRE_Y0, CADRE_LEN);
 	draw(mlxparams);
-	//mlx_pixel_put(mlxparams->mlx_ptr, mlxparams->mlx_win, 52, 53, COLOR);
 	mlx_key_hook(mlxparams->win, key_hook, mlxparams);
 	mlx_hook(mlxparams->win, 17, 0, ft_close, param);
 }

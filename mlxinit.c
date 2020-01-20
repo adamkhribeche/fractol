@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 11:08:07 by nkhribec          #+#    #+#             */
-/*   Updated: 2020/01/20 19:46:19 by nkhribec         ###   ########.fr       */
+/*   Updated: 2020/01/20 21:23:11 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	fill_mb_infos(t_mb_infos *mb_infos)
 	mb_infos->xmin = -2.;
 	mb_infos->ymax = 2.;
 	mb_infos->ymin = -2.;
-	mb_infos->pas = 4. / (I_LEN - 1.);
+	mb_infos->len = 4.;
 }
 
 void	set_img_clean(t_mlxparams* mlxparams)
