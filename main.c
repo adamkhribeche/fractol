@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 11:07:19 by nkhribec          #+#    #+#             */
-/*   Updated: 2020/01/20 03:27:23 by nkhribec         ###   ########.fr       */
+/*   Updated: 2020/01/20 17:19:00 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,20 +45,21 @@ void	draw(t_mlxparams *mlxparams)
 	int			i;
 	int			ret;
 	//int			j;
-	double		pas;
 	double 		a;
 	int			bright;
 
-	y = -2.;
+	//y = -2.;
+	y = mlxparams->mb_infos.ymin;
 	i = 0;
 	//j = 0;
-	pas = 0.005;
-	while (y <= 2.)
+	//pas = 0.005;
+	while (y < mlxparams->mb_infos.ymax)
 	{
-		x = -2.;
-		while (x <= 2.)
+		x = mlxparams->mb_infos.xmin;
+		//x = -2.;
+		while (x < mlxparams->mb_infos.xmax)
 		{
-			if ((ret = is_diverg(x, y)))
+			if (ABS(x) < 2. && ABS(y) < 2. && (ret = is_diverg(x, y)))
 			{
 				a = map(ret, 0, 100, 0, 1);
 				bright = map(sqrt(a), 0, 1, 0, 255);
@@ -67,17 +68,17 @@ void	draw(t_mlxparams *mlxparams)
 			}
 			//printf("%d\n", i);
 			i++;
-			x += pas;
+			x += mlxparams->mb_infos.pas;
 		}
 		//printf("%d\n", j++);
 		//exit(0);
-		y += pas;
+		y += mlxparams->mb_infos.pas;
 	}
 	//exit(0);
 	//mlx_put_image_to_window(mlxparams->mlx_ptr, mlxparams->mlx_win,\
 			mlxparams->img_ptr, I_X0, I_Y0);
 	mlx_put_image_to_window(mlxparams->ptr, mlxparams->win,\
-			mlxparams->fractal.img_ptr, mlxparams->fractal.image_x0, mlxparams->fractal.image_y0);
+			mlxparams->fractal.img_ptr, I_X0, I_Y0);
 }
 
 void	mandelbrot(t_mlxparams *mlxparams)

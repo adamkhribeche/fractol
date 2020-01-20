@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 20:48:43 by nkhribec          #+#    #+#             */
-/*   Updated: 2020/01/20 03:57:06 by nkhribec         ###   ########.fr       */
+/*   Updated: 2020/01/20 19:40:18 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,95 +63,99 @@ int		ft_close(void *param)
 	exit(0);
 }
 
-void	clean_win(t_mlxparams *mlxparams)
+void	fill_mb_to_move_left(t_mb_infos *mb_infos)
 {
-	t_img img;
-
-	img.img_ptr = (int*)mlx_new_image(mlxparams->ptr, W_LEN, W_WID);
-	img.image = (int *)mlx_get_data_addr(img.img_ptr,\
-	&img.bits_per_pixel, &img.size_line, &img.endian);
-	mlx_put_image_to_window(mlxparams->ptr, mlxparams->win,\
-			img.img_ptr, 0, 0);
+	mb_infos->xmax += 10 * mb_infos->pas;
+	mb_infos->xmin += 10 * mb_infos->pas;
+	//mb_infos->xmax += 0.5;
+	//mb_infos->xmin += 0.5;
 }
 
-void	clean_top(t_mlxparams *mlxparams)
+void	fill_mb_to_move_right(t_mb_infos *mb_infos)
 {
-	mlx_put_image_to_window(mlxparams->ptr, mlxparams->win,\
-			mlxparams->cleantop_img.img_ptr, 0, 0);
+	mb_infos->xmax -= 10 * mb_infos->pas;
+	mb_infos->xmin -= 10 * mb_infos->pas;
 }
 
-void	clean_down(t_mlxparams *mlxparams)
+void	fill_mb_to_move_up(t_mb_infos *mb_infos)
 {
-	mlx_put_image_to_window(mlxparams->ptr, mlxparams->win,\
-			mlxparams->cleandown_img.img_ptr, 0, CADRE_Y0 + CADRE_LEN);
+	mb_infos->ymax += 10 * mb_infos->pas;
+	mb_infos->ymin += 10 * mb_infos->pas;
 }
 
-void	clean_left(t_mlxparams *mlxparams)
+void	fill_mb_to_move_down(t_mb_infos *mb_infos)
 {
-	mlx_put_image_to_window(mlxparams->ptr, mlxparams->win,\
-			mlxparams->cleanleft_img.img_ptr, 0, CADRE_Y0);
-}
-
-void	clean_right(t_mlxparams *mlxparams)
-{
-	mlx_put_image_to_window(mlxparams->ptr, mlxparams->win,\
-			mlxparams->cleanright_img.img_ptr, CADRE_X0 + CADRE_LEN, CADRE_Y0);
-}
-
-void	clean_outsid(t_mlxparams *mlxparams)
-{
-	clean_top(mlxparams);
-	clean_down(mlxparams);
-	clean_left(mlxparams);
-	clean_right(mlxparams);
+	mb_infos->ymax -= 10 * mb_infos->pas;
+	mb_infos->ymin -= 10 * mb_infos->pas;
 }
 
 void	move_left(t_mlxparams *mlxparams)
 {
-	mlxparams->fractal.image_x0 -= 6;
-	clean_win(mlxparams);
-	mlx_put_image_to_window(mlxparams->ptr, mlxparams->win,\
-		mlxparams->fractal.img_ptr, mlxparams->fractal.image_x0, mlxparams->fractal.image_y0);
-	put_cadre(mlxparams, CADRE_X0, CADRE_Y0, CADRE_LEN);
-	clean_outsid(mlxparams);
+	fill_mb_to_move_left(&mlxparams->mb_infos);
+	ft_memset(mlxparams->fractal.image, 0, I_LEN * I_WID * 4);
+	draw(mlxparams);
 }
 
 void	move_right(t_mlxparams *mlxparams)
 {
-	mlxparams->fractal.image_x0 += 6;
-	clean_win(mlxparams);
-	mlx_put_image_to_window(mlxparams->ptr, mlxparams->win,\
-		mlxparams->fractal.img_ptr, mlxparams->fractal.image_x0, mlxparams->fractal.image_y0);
-	put_cadre(mlxparams, CADRE_X0, CADRE_Y0, CADRE_LEN);
-	clean_outsid(mlxparams);
+	fill_mb_to_move_right(&mlxparams->mb_infos);
+	ft_memset(mlxparams->fractal.image, 0, I_LEN * I_WID * 4);
+	draw(mlxparams);
 }
 
 void	move_up(t_mlxparams *mlxparams)
 {
-	mlxparams->fractal.image_y0 -= 6;
-	clean_win(mlxparams);
+	fill_mb_to_move_up(&mlxparams->mb_infos);
 	mlx_put_image_to_window(mlxparams->ptr, mlxparams->win,\
-		mlxparams->fractal.img_ptr, mlxparams->fractal.image_x0, mlxparams->fractal.image_y0);
-	put_cadre(mlxparams, CADRE_X0, CADRE_Y0, CADRE_LEN);
-	clean_outsid(mlxparams);
+			mlxparams->img_clean.img_ptr, I_X0, I_Y0);
+	ft_memset(mlxparams->fractal.image, 0, I_LEN * I_WID * 4);
+	draw(mlxparams);
 }
 
 void	move_down(t_mlxparams *mlxparams)
 {
-	mlxparams->fractal.image_y0 += 6;
-	clean_win(mlxparams);
-	mlx_put_image_to_window(mlxparams->ptr, mlxparams->win,\
-		mlxparams->fractal.img_ptr, mlxparams->fractal.image_x0, mlxparams->fractal.image_y0);
-	put_cadre(mlxparams, CADRE_X0, CADRE_Y0, CADRE_LEN);
-	clean_outsid(mlxparams);
+	fill_mb_to_move_down(&mlxparams->mb_infos);
+	ft_memset(mlxparams->fractal.image, 0, I_LEN * I_WID * 4);
+	draw(mlxparams);
 }
 
 void	init(t_mlxparams *mlxparams)
 {
-	mlxparams->fractal.image_x0 = I_X0;
-	mlxparams->fractal.image_y0 = I_Y0;
-	mlx_put_image_to_window(mlxparams->ptr, mlxparams->win,\
-		mlxparams->fractal.img_ptr, mlxparams->fractal.image_x0, mlxparams->fractal.image_y0);
+	fill_mb_infos(&mlxparams->mb_infos);
+	ft_memset(mlxparams->fractal.image, 0, I_LEN * I_WID * 4);
+	draw(mlxparams);
+}
+
+void	fill_mb_to_zoomin(t_mb_infos *mb_infos)
+{
+	mb_infos->xmax *= 0.7;// 70 per cent
+	mb_infos->xmin *= 0.7;
+	mb_infos->ymax *= 0.7;
+	mb_infos->ymin *= 0.7;
+	mb_infos->pas = (mb_infos->xmax - mb_infos->xmin) / (I_LEN - 1.);
+}
+
+void	fill_mb_to_zoomout(t_mb_infos *mb_infos)
+{
+	mb_infos->xmax *= 1.3;// 70 per cent
+	mb_infos->xmin *= 1.3;
+	mb_infos->ymax *= 1.3;
+	mb_infos->ymin *= 1.3;
+	mb_infos->pas = (mb_infos->xmax - mb_infos->xmin) / (I_LEN - 1.);
+}
+
+void	zoom_out(t_mlxparams *mlxparams)
+{
+	fill_mb_to_zoomout(&mlxparams->mb_infos);
+	ft_memset(mlxparams->fractal.image, 0, I_LEN * I_WID * 4);
+	draw(mlxparams);
+}
+
+void	zoom_in(t_mlxparams *mlxparams)
+{
+	fill_mb_to_zoomin(&mlxparams->mb_infos);
+	ft_memset(mlxparams->fractal.image, 0, I_LEN * I_WID * 4);
+	draw(mlxparams);
 }
 
 int		key_hook(int keycode, void *param)
@@ -166,6 +170,10 @@ int		key_hook(int keycode, void *param)
 		move_up(param);
 	else if (keycode == 125)
 		move_down(param);
+	else if (keycode == 69)
+		zoom_in(param);
+	else if (keycode == 78)
+		zoom_out(param);
 	else if (keycode == 34)
 		init(param);
 	return (0);

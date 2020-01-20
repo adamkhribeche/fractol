@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 11:00:03 by nkhribec          #+#    #+#             */
-/*   Updated: 2020/01/20 03:30:18 by nkhribec         ###   ########.fr       */
+/*   Updated: 2020/01/20 19:44:16 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,33 +28,38 @@
 # define CADRE_LEN 806
 # define I_X0 52
 # define I_Y0 53
+# define R0 -2.
 # define COLOR 0X00FFFFFF
 # define TRUE 1
 # define FALSE 0
 # define ABS(v) ((v > 0) ? v : -v)
 
+typedef struct	s_mb_infos
+{
+	double	xmin;
+	double	xmax;
+	double	ymin;
+	double	ymax;
+	double	pas;
+}				t_mb_infos;
+
 typedef struct	s_img
 {
 	void		*img_ptr;
 	int			*image;
-	int			image_x0;
-	int			image_y0;
 	int			bits_per_pixel;
 	int			size_line;
 	int			endian;
 }				t_img;
 
-typedef struct	s_mlxparams
+typedef struct		s_mlxparams
 {
-	void		*ptr;
-	void		*win;
-	t_img		fractal;
-	t_img		cleantop_img;
-	t_img		cleandown_img;
-	t_img		cleanleft_img;
-	t_img		cleanright_img;
-
-}				t_mlxparams;
+	void			*ptr;
+	void			*win;
+	t_img			fractal;
+	t_img			img_clean;
+	t_mb_infos		mb_infos;
+}					t_mlxparams;
 
 typedef struct	s_z
 {
@@ -67,18 +72,12 @@ typedef struct	s_param
 	t_mlxparams mlxparams;
 }				t_param;
 
-typedef struct	s_mandelbrot
-{
-	double	min_x;
-	double	max_x;
-	double	min_y;
-	double	max_y;
-	double	pas;
-}				t_mandelbrot;
 /*
 ** ***************************************************************************
 */
-	
+
+void	draw(t_mlxparams *mlxparams);
+void	fill_mb_infos(t_mb_infos *mb_infos);
 double	map(double n, double a, double b, double a2, double b2);
 void	fill_mlxparams(t_mlxparams *mlxparams);
 int		put(int keycode, void *vartemp);
