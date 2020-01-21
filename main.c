@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 11:07:19 by nkhribec          #+#    #+#             */
-/*   Updated: 2020/01/21 02:03:22 by nkhribec         ###   ########.fr       */
+/*   Updated: 2020/01/21 13:12:16 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void	draw_mb(t_mlxparams *mlxparams)
 			if ((ret = is_diverg_mb(x, y)))
 			{
 				mlxparams->fractal.image[i + (j * I_LEN)] =\
-				(ret * 255 / (ITERATION + mlxparams->color1)) + \
-				((ret * 255 / (ITERATION + mlxparams->color1 )) << 8);
+				((ret * 255 / ITERATION) << mlxparams->color1) +\
+				((ret * 255 / ITERATION) << mlxparams->color2);
 			}
 			i++;
 		}
@@ -107,8 +107,8 @@ void	draw_julia(t_mlxparams *mlxparams, double a, double b)
 			if ((ret = is_diverg_julia(x, y, a, b)))
 			{
 				mlxparams->fractal.image[i + (j * I_LEN)] = \
-				(ret * 255 / (ITERATION + mlxparams->color1)) + \
-				((ret * 255 / (ITERATION + mlxparams->color2)) << 8);
+				((ret * 255 / ITERATION) << mlxparams->color1) +\
+				((ret * 255 / ITERATION) << mlxparams->color2);
 			}
 			i++;
 		}

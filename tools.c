@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 20:30:42 by nkhribec          #+#    #+#             */
-/*   Updated: 2020/01/21 02:33:40 by nkhribec         ###   ########.fr       */
+/*   Updated: 2020/01/21 13:26:38 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,31 +193,31 @@ void	ft_switch(t_mlxparams *mlxparams)
 void	ft_color0(t_mlxparams *mlxparams)
 {
 	mlxparams->color1 = 0;
-	mlxparams->color2 = 0;
+	mlxparams->color2 = 8;
 	ft_memset(mlxparams->fractal.image, 0, I_LEN * I_WID * 4);
 	mlxparams->flag == 1 ? draw_mb(mlxparams) : draw_julia(mlxparams, -0.7375, -0.3375);
 }
 
 void	ft_color1(t_mlxparams *mlxparams)
 {
-	mlxparams->color1 = 100;
-	mlxparams->color2 = 0;
+	mlxparams->color1 = 4;
+	mlxparams->color2 = 10;
 	ft_memset(mlxparams->fractal.image, 0, I_LEN * I_WID * 4);
 	mlxparams->flag == 1 ? draw_mb(mlxparams) : draw_julia(mlxparams, -0.7375, -0.3375);
 }
 
 void	ft_color2(t_mlxparams *mlxparams)
 {
-	mlxparams->color1 = 0;
-	mlxparams->color2 = 100;
+	mlxparams->color1 = 8;
+	mlxparams->color2 = 16;
 	ft_memset(mlxparams->fractal.image, 0, I_LEN * I_WID * 4);
 	mlxparams->flag == 1 ? draw_mb(mlxparams) : draw_julia(mlxparams, -0.7375, -0.3375);
 }
 
 void	ft_color3(t_mlxparams *mlxparams)
 {
-	mlxparams->color1 = -10;
-	mlxparams->color2 = -10;
+	mlxparams->color1 = 18;
+	mlxparams->color2 = 0;
 	ft_memset(mlxparams->fractal.image, 0, I_LEN * I_WID * 4);
 	mlxparams->flag == 1 ? draw_mb(mlxparams) : draw_julia(mlxparams, -0.7375, -0.3375);
 }

@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 11:08:07 by nkhribec          #+#    #+#             */
-/*   Updated: 2020/01/21 01:19:00 by nkhribec         ###   ########.fr       */
+/*   Updated: 2020/01/21 12:58:32 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	fill_mlxparams(t_mlxparams *mlxparams, int flag)
 	mlxparams->win = mlx_new_window(mlxparams->ptr, W_LEN, W_WID, "mlx 42");
 	mlxparams->flag = flag;
 	mlxparams->color1 = 0;
-	mlxparams->color2 = 0;
+	mlxparams->color2 = 8;
 	fill_mb_infos(&mlxparams->mb_infos);
 	set_img_clean(mlxparams);
 	set_fractal_img(mlxparams);
