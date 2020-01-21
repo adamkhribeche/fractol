@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 11:00:03 by nkhribec          #+#    #+#             */
-/*   Updated: 2020/01/21 02:10:47 by nkhribec         ###   ########.fr       */
+/*   Updated: 2020/01/21 14:11:09 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,16 @@ typedef struct	s_z
 ** ***************************************************************************
 */
 
+void    ft_color0(t_mlxparams *mlxparams);
+void    ft_color1(t_mlxparams *mlxparams);
+void    ft_color2(t_mlxparams *mlxparams);
+void    ft_color3(t_mlxparams *mlxparams);
+void    move_left(t_mlxparams *mlxparams);
+void    move_right(t_mlxparams *mlxparams);
+void    move_up(t_mlxparams *mlxparams);
+void    move_down(t_mlxparams *mlxparams);
+void    zoom_out(t_mlxparams *mlxparams);
+void    zoom_in(t_mlxparams *mlxparams);
 int		ft_mouse_move(int x, int y, t_mlxparams *mlxparams);
 void	draw_mb(t_mlxparams *mlxparams);
 void	draw_julia(t_mlxparams *mlxparams, double a, double b);
