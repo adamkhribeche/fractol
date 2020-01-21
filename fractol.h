@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 11:00:03 by nkhribec          #+#    #+#             */
-/*   Updated: 2020/01/20 22:16:31 by nkhribec         ###   ########.fr       */
+/*   Updated: 2020/01/21 02:10:47 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define CADRE_LEN 806
 # define I_X0 52
 # define I_Y0 53
-# define ITERATION 40
+# define ITERATION 50
 # define COLOR 0X00FFFFFF
 # define TRUE 1
 # define FALSE 0
@@ -56,6 +56,9 @@ typedef struct		s_mlxparams
 {
 	void			*ptr;
 	void			*win;
+	int				flag;
+	int				color1;
+	int				color2;
 	t_img			fractal;
 	t_img			img_clean;
 	t_mb_infos		mb_infos;
@@ -76,10 +79,13 @@ typedef struct	s_z
 ** ***************************************************************************
 */
 
+int		ft_mouse_move(int x, int y, t_mlxparams *mlxparams);
+void	draw_mb(t_mlxparams *mlxparams);
+void	draw_julia(t_mlxparams *mlxparams, double a, double b);
 void	draw(t_mlxparams *mlxparams);
 void	fill_mb_infos(t_mb_infos *mb_infos);
 double	map(double n, double a, double b, double a2, double b2);
-void	fill_mlxparams(t_mlxparams *mlxparams);
+void	fill_mlxparams(t_mlxparams *mlxparams, int flag);
 int		put(int keycode, void *vartemp);
 int		ft_close(void *param);
 int		key_hook(int keycode, void *param);

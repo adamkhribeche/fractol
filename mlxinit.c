@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 11:08:07 by nkhribec          #+#    #+#             */
-/*   Updated: 2020/01/20 21:23:11 by nkhribec         ###   ########.fr       */
+/*   Updated: 2020/01/21 01:19:00 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,13 @@ void	set_fractal_img(t_mlxparams* mlxparams)
 	&mlxparams->fractal.bits_per_pixel, &mlxparams->fractal.size_line, &mlxparams->fractal.endian);
 }
 
-void	fill_mlxparams(t_mlxparams *mlxparams)
+void	fill_mlxparams(t_mlxparams *mlxparams, int flag)
 {
 	mlxparams->ptr = mlx_init();
 	mlxparams->win = mlx_new_window(mlxparams->ptr, W_LEN, W_WID, "mlx 42");
+	mlxparams->flag = flag;
+	mlxparams->color1 = 0;
+	mlxparams->color2 = 0;
 	fill_mb_infos(&mlxparams->mb_infos);
 	set_img_clean(mlxparams);
 	set_fractal_img(mlxparams);
