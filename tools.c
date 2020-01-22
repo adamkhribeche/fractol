@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 20:48:43 by nkhribec          #+#    #+#             */
-/*   Updated: 2020/01/22 20:06:50 by nkhribec         ###   ########.fr       */
+/*   Updated: 2020/01/22 21:47:54 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void	centred_zoom_out(int x0, int y0, t_mlxparams *mlxparams)
 		//printf("y %lf\n", y);
 		//x = map(x, xmin, xmax, x - fabs(0.9 * x), x + fabs(0.9 * (len - x)));
 		//y = map(y, ymin, ymax, y - fabs(0.9 * y), y + fabs(0.9 * (len - y)));
+		printf("------nouveau-------\n");
 		printf("xmin %lf\n", mlxparams->fractal_infos.xmin);
 		printf("xmax %lf\n", mlxparams->fractal_infos.xmax);
 		printf("ymin %lf\n", mlxparams->fractal_infos.ymin);
@@ -113,8 +114,8 @@ void	centred_zoom_out(int x0, int y0, t_mlxparams *mlxparams)
 		printf("-------------\n");
 		mlxparams->fractal_infos.xmin = x - ((px / I_LEN) * len);
 		mlxparams->fractal_infos.xmax = x + (((I_LEN - px) / I_LEN) * len);
-		mlxparams->fractal_infos.ymax = y - ((py / I_LEN) * len);
-		mlxparams->fractal_infos.ymin = y + (((I_LEN - py) / I_LEN) * len);
+		mlxparams->fractal_infos.ymax = y + ((py / I_LEN) * len);
+		mlxparams->fractal_infos.ymin = y - (((I_LEN - py) / I_LEN) * len);
 		mlxparams->fractal_infos.len = len;
 		printf("-------------\n");
 		printf("xmin %lf\n", mlxparams->fractal_infos.xmin);
@@ -176,11 +177,12 @@ void	centred_zoom_in(int x0, int y0, t_mlxparams *mlxparams)
 		mlxparams->fractal_infos.xmax = x + fabs((xmax - x) / 0.9);
 		mlxparams->fractal_infos.ymin = y - fabs((y - ymin) / 0.9);
 		mlxparams->fractal_infos.ymax = y + fabs((ymax - y) / 0.9);*/
+		printf("------nouveau-------\n");
 		printf("xmin %lf\n", mlxparams->fractal_infos.xmin);
 		printf("xmax %lf\n", mlxparams->fractal_infos.xmax);
 		printf("ymin %lf\n", mlxparams->fractal_infos.ymin);
 		printf("ymax %lf\n", mlxparams->fractal_infos.ymax);
-		printf("len %lf\n", len);
+		printf("len %lf\n", mlxparams->fractal_infos.len);
 		printf("x %lf\n", x);
 		printf("y %lf\n", y);
 		printf("px %lf\n", px);
@@ -194,8 +196,8 @@ void	centred_zoom_in(int x0, int y0, t_mlxparams *mlxparams)
 		printf("-------------\n");
 		mlxparams->fractal_infos.xmin = x - ((px / I_LEN) * len);
 		mlxparams->fractal_infos.xmax = x + (((I_LEN - px) / I_LEN) * len);
-		mlxparams->fractal_infos.ymax = y - ((py / I_LEN) * len);
-		mlxparams->fractal_infos.ymin = y + (((I_LEN - py) / I_LEN) * len);
+		mlxparams->fractal_infos.ymax = y + ((py / I_LEN) * len);
+		mlxparams->fractal_infos.ymin = y - (((I_LEN - py) / I_LEN) * len);
 		mlxparams->fractal_infos.len = len;
 		printf("-------------\n");
 		printf("xmin %lf\n", mlxparams->fractal_infos.xmin);
