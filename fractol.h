@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 11:00:03 by nkhribec          #+#    #+#             */
-/*   Updated: 2020/01/21 14:11:09 by nkhribec         ###   ########.fr       */
+/*   Updated: 2020/01/22 15:40:46 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,22 @@
 # define I_Y0 53
 # define ITERATION 50
 # define COLOR 0X00FFFFFF
-# define TRUE 1
-# define FALSE 0
-# define ABS(v) ((v > 0) ? v : -v)
 
-typedef struct	s_mb_infos
+typedef struct	s_z
+{
+	double	x;
+	double	y;
+}				t_z;
+
+typedef struct	s_fractal_infos
 {
 	double	xmin;
 	double	xmax;
 	double	ymin;
 	double	ymax;
 	double	len;
-}				t_mb_infos;
+	t_z		z;
+}				t_fractal_infos;
 
 typedef struct	s_img
 {
@@ -60,15 +64,10 @@ typedef struct		s_mlxparams
 	int				color1;
 	int				color2;
 	t_img			fractal;
-	t_img			img_clean;
-	t_mb_infos		mb_infos;
+	int				track_flag;
+	t_fractal_infos		fractal_infos;
 }					t_mlxparams;
 
-typedef struct	s_z
-{
-	double	x;
-	double	y;
-}				t_z;
 
 /*typedef struct	s_param
 {
@@ -79,6 +78,7 @@ typedef struct	s_z
 ** ***************************************************************************
 */
 
+int		mouse_hook(int button, int x, int y, t_mlxparams *mlxparams);
 void    ft_color0(t_mlxparams *mlxparams);
 void    ft_color1(t_mlxparams *mlxparams);
 void    ft_color2(t_mlxparams *mlxparams);
@@ -93,12 +93,12 @@ int		ft_mouse_move(int x, int y, t_mlxparams *mlxparams);
 void	draw_mb(t_mlxparams *mlxparams);
 void	draw_julia(t_mlxparams *mlxparams, double a, double b);
 void	draw(t_mlxparams *mlxparams);
-void	fill_mb_infos(t_mb_infos *mb_infos);
+void	fill_fractal_infos(t_fractal_infos *fractal_infos);
 double	map(double n, double a, double b, double a2, double b2);
 void	fill_mlxparams(t_mlxparams *mlxparams, int flag);
 int		put(int keycode, void *vartemp);
-int		ft_close(void *param);
-int		key_hook(int keycode, void *param);
+int		ft_close(t_mlxparams *mlxparams);
+int		key_hook(int keycode, t_mlxparams *mlxparams);
 void	put_cadre(t_mlxparams *mlxparams, int x, int y, int len);
 
 

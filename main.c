@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 11:07:19 by nkhribec          #+#    #+#             */
-/*   Updated: 2020/01/21 13:48:59 by nkhribec         ###   ########.fr       */
+/*   Updated: 2020/01/22 01:18:58 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ void	draw_mb(t_mlxparams *mlxparams)
 	while (j < I_WID)
 	{
 		i = 0;
-		y = map(j, 0, I_WID, mlxparams->mb_infos.ymin, mlxparams->mb_infos.ymax);
+		y = map(j, 0, I_WID, mlxparams->fractal_infos.ymin, mlxparams->fractal_infos.ymax);
 		while (i < I_LEN)
 		{
-			x = map(i, 0, I_LEN, mlxparams->mb_infos.xmin, mlxparams->mb_infos.xmax);
+			x = map(i, 0, I_LEN, mlxparams->fractal_infos.xmin, mlxparams->fractal_infos.xmax);
 			if ((ret = is_diverg_mb(x, y)))
 			{
 				mlxparams->fractal.image[i + (j * I_LEN)] =\
@@ -100,10 +100,10 @@ void	draw_julia(t_mlxparams *mlxparams, double a, double b)
 	while (j < I_WID)
 	{
 		i = 0;
-		y = map(j, 0, I_WID, mlxparams->mb_infos.ymin, mlxparams->mb_infos.ymax);
+		y = map(j, 0, I_WID, mlxparams->fractal_infos.ymin, mlxparams->fractal_infos.ymax);
 		while (i < I_LEN)
 		{
-			x = map(i, 0, I_LEN, mlxparams->mb_infos.xmin, mlxparams->mb_infos.xmax);
+			x = map(i, 0, I_LEN, mlxparams->fractal_infos.xmin, mlxparams->fractal_infos.xmax);
 			if ((ret = is_diverg_julia(x, y, a, b)))
 			{
 				mlxparams->fractal.image[i + (j * I_LEN)] = \
@@ -121,7 +121,9 @@ void	draw_julia(t_mlxparams *mlxparams, double a, double b)
 void	draw(t_mlxparams *mlxparams)
 {
 	put_cadre(mlxparams, CADRE_X0, CADRE_Y0, CADRE_LEN);
-	mlxparams->flag == 1 ? draw_mb(mlxparams) : draw_julia(mlxparams, -0.7375, -0.3375);
+	mlxparams->flag == 1 ? draw_mb(mlxparams) :\
+	draw_julia(mlxparams, mlxparams->fractal_infos.z.x, mlxparams->fractal_infos.z.y);
+	mlx_mouse_hook(mlxparams->win, mouse_hook, mlxparams);
 	mlx_key_hook(mlxparams->win, key_hook, mlxparams);
 	mlx_hook(mlxparams->win, 17, 0, ft_close, mlxparams);
 	mlx_hook(mlxparams->win, 6, 0, ft_mouse_move, mlxparams);
