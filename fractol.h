@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 11:00:03 by nkhribec          #+#    #+#             */
-/*   Updated: 2020/01/23 00:53:53 by nkhribec         ###   ########.fr       */
+/*   Updated: 2020/01/23 16:59:04 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,15 @@
 # define W_WID 905
 # define I_LEN 801
 # define I_WID 801
+# define I_X0 52
+# define I_Y0 53
 # define CADRE_X0 50
 # define CADRE_Y0 50
 # define CADRE_LEN 806
-# define I_X0 52
-# define I_Y0 53
 # define ITERATION 50
+# define SHIFT_PERCENT 0.03
+# define ZMIN_PERCENT 0.9
+# define ZMOUT_PERCENT 1.1
 # define COLOR 0X00FFFFFF
 
 typedef struct	s_z
@@ -68,16 +71,12 @@ typedef struct		s_mlxparams
 	t_fractal_infos		fractal_infos;
 }					t_mlxparams;
 
-
-/*typedef struct	s_param
-{
-	t_mlxparams mlxparams;
-}				t_param;*/
-
 /*
 ** ***************************************************************************
 */
 
+void	centred_zoom_in(double x, double y, t_mlxparams *mlxparams);
+void	centred_zoom_out(double x, double y, t_mlxparams *mlxparams);
 int		mouse_hook(int button, int x, int y, t_mlxparams *mlxparams);
 void    ft_color0(t_mlxparams *mlxparams);
 void    ft_color1(t_mlxparams *mlxparams);

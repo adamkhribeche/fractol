@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 13:52:35 by nkhribec          #+#    #+#             */
-/*   Updated: 2020/01/21 21:18:28 by nkhribec         ###   ########.fr       */
+/*   Updated: 2020/01/23 16:54:58 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 static void    fill_fractal_data_to_zoom_in(t_fractal_infos *fractal_infos)
 {
-	fractal_infos->xmax *= 0.9;// 70 per cent
-	fractal_infos->xmin *= 0.9;
-	fractal_infos->ymax *= 0.9;
-	fractal_infos->ymin *= 0.9;
+	fractal_infos->xmax *= ZMIN_PERCENT;// 90 per cent
+	fractal_infos->xmin *= ZMIN_PERCENT;
+	fractal_infos->ymax *= ZMIN_PERCENT;
+	fractal_infos->ymin *= ZMIN_PERCENT;
 	fractal_infos->len = (fractal_infos->xmax - fractal_infos->xmin);
 }
 
 static void    fill_fractal_data_to_zoomout(t_fractal_infos *fractal_infos)
 {
-	fractal_infos->xmax /= 0.9;
-	fractal_infos->xmin /= 0.9;
-	fractal_infos->ymax /= 0.9;
-	fractal_infos->ymin /= 0.9;
+	fractal_infos->xmax *= ZMOUT_PERCENT;
+	fractal_infos->xmin *= ZMOUT_PERCENT;
+	fractal_infos->ymax *= ZMOUT_PERCENT;
+	fractal_infos->ymin *= ZMOUT_PERCENT;
 	fractal_infos->len = (fractal_infos->xmax - fractal_infos->xmin);
 }
 
