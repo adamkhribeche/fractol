@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 11:07:19 by nkhribec          #+#    #+#             */
-/*   Updated: 2020/01/22 01:18:58 by nkhribec         ###   ########.fr       */
+/*   Updated: 2020/01/23 14:53:43 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	draw_mb(t_mlxparams *mlxparams)
 	while (j < I_WID)
 	{
 		i = 0;
-		y = map(j, 0, I_WID, mlxparams->fractal_infos.ymin, mlxparams->fractal_infos.ymax);
+		y = map(j, 0, I_WID, mlxparams->fractal_infos.ymax, mlxparams->fractal_infos.ymin);
 		while (i < I_LEN)
 		{
 			x = map(i, 0, I_LEN, mlxparams->fractal_infos.xmin, mlxparams->fractal_infos.xmax);
@@ -100,7 +100,7 @@ void	draw_julia(t_mlxparams *mlxparams, double a, double b)
 	while (j < I_WID)
 	{
 		i = 0;
-		y = map(j, 0, I_WID, mlxparams->fractal_infos.ymin, mlxparams->fractal_infos.ymax);
+		y = map(j, 0, I_WID, mlxparams->fractal_infos.ymax, mlxparams->fractal_infos.ymin);
 		while (i < I_LEN)
 		{
 			x = map(i, 0, I_LEN, mlxparams->fractal_infos.xmin, mlxparams->fractal_infos.xmax);
