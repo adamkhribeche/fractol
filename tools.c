@@ -6,7 +6,7 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 20:48:43 by nkhribec          #+#    #+#             */
-/*   Updated: 2020/01/23 17:00:36 by nkhribec         ###   ########.fr       */
+/*   Updated: 2020/01/23 17:51:34 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int		mouse_hook(int button, int x, int y, t_mlxparams *mlxparams)
 int		key_hook(int keycode, t_mlxparams *mlxparams)
 {
 	if (keycode == 53)
-		printf("ok\n");
+		ft_close(mlxparams);
 	else if (keycode == 123)
 		move_left(mlxparams);
 	else if (keycode == 124)

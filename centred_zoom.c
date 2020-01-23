@@ -6,9 +6,11 @@
 /*   By: nkhribec <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 16:58:01 by nkhribec          #+#    #+#             */
-/*   Updated: 2020/01/23 16:58:40 by nkhribec         ###   ########.fr       */
+/*   Updated: 2020/01/23 17:48:28 by nkhribec         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "fractol.h"
 
 void	centred_zoom_out(double x, double y, t_mlxparams *mlxparams)
 {
